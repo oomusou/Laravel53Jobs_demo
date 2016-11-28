@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\ShippingServiceJob;
 use App\Services\ShippingService;
 
 class ShippingServiceTest extends TestCase
@@ -18,5 +19,12 @@ class ShippingServiceTest extends TestCase
         /** assert */
         $expected = 110;
         $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function 非同步啟動ShippingServiceJob()
+    {
+        $weight = 1;
+        dispatch(new ShippingServiceJob($weight));
     }
 }
